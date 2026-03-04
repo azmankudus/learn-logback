@@ -26,16 +26,18 @@ Understanding the lifecycle of a log event is key to mastering Logback.
 Explore the projects in this sequence to build your knowledge from the ground up:
 
 ### 🍼 1. Basic
-*   **[Logback Basic](logback-basic/)**: The absolute entry point. SLF4J setup and basic XML structure.
+*   **[Logback Basic](logback-basic/)**: The absolute entry point. SLF4J setup, XML structure, and **Dynamic Reloading**.
 
 ### ⚓ 2. Built-in Features
 Explore the core batteries-included features of Logback:
+*   **[Async](logback-async/)**: Non-blocking logging using `AsyncAppender` for high-performance apps.
 *   **[Logger](logback-logger/)**: Package-specific hierarchies and level management (IT, HR, Sales).
 *   **[Appender](logback-appender/)**: Multi-output strategies (Console and File).
 *   **[Rolling](logback-rolling/)**: File rotation policies (Size, Time, Fixed Window).
 *   **[Filter](logback-filter/)**: Selective logging using `ThresholdFilter` and `LevelFilter`.
 *   **[Context](logback-context/)**: MDC (Mapped Diagnostic Context) for thread-safe session tracking.
-*   **[Async](logback-async/)**: Non-blocking logging using `AsyncAppender` for high-performance apps.
+*   **[Markers](logback-markers/)**: Tagging log events for specialized filtering and processing.
+*   **[Condition](logback-condition/)**: Using conditional logic for environment-specific configuration.
 
 ### 🛠️ 3. Custom Extensions
 Learn how to extend Logback for specific business needs:
@@ -117,6 +119,9 @@ Example:
 ├── logback-filter/          # Standard filtering
 ├── logback-context/         # MDC & Context properties
 ├── logback-async/           # Asynchronous appenders
+├── logback-context/         # MDC & Context properties
+├── logback-markers/         # Marker-based logging
+├── logback-condition/       # Conditional configuration
 ├── logback-custom-*         # Custom component implementations
 ├── build.gradle.kts         # Root build configuration
 └── gradle/

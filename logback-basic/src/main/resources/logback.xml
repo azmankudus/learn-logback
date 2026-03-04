@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
+<configuration scan="true" scanPeriod="30 seconds">
 
     <!-- Properties allow for reusable values throughout the configuration -->
     <!-- %d: date, %thread: thread name, %-5level: 5-char justified level, %logger: class name, %msg: log message -->

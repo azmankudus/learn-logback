@@ -1,5 +1,5 @@
 <a id="top"></a>
-<a href="../README.md" style="float: right;">Direct back to main</a>
+<a href="../README.md" style="float: right;">... back to main</a>
 
 # 🛠️ Logback Custom Logger
 

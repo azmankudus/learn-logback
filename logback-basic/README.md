@@ -26,7 +26,12 @@ The encoder transforms an incoming event into a byte array and writes it out. Th
 *   `%msg`: The actual log message you wrote in code.
 *   `%n`: Platform-dependent line separator.
 
-### 4. `<root>`
+### 4. `<property>` (Variables)
+Properties allow you to define variables in your configuration file. This is useful for centralizing values like patterns, directory paths, or prefixes.
+*   **Definition**: `<property name="VAR_NAME" value="my_value" />`
+*   **Usage**: Refer to the variable using the `${VAR_NAME}` syntax.
+
+### 5. `<root>`
 The `<root>` element is the ultimate parent of all loggers. It defines the global logging level and which appenders should be used across the entire application.
 
 ---

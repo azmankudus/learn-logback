@@ -11,10 +11,13 @@ public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        logger.info("Application started using multiple appenders.");
-        logger.warn("This is a warning log that goes to both Console and File appenders.");
-        logger.error("Something went wrong! Check your log files.");
+        logger.trace("Trace log - very detailed info.");
+        logger.debug("Debug information is visible if log level is set in logback.xml");
+        logger.info("Logging started dynamically!");
+        logger.warn("Be careful with those logs!");
+        logger.error("Error logging example!");
 
-        System.out.println("Check the 'logs/' folder to see the results!");
+        System.out.println("Standard System.out still works too.");
     }
 }
+

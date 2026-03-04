@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Custom Property: Available throughout this configuration file -->
+    <property name="APP_NAME" value="LogbackContextDemo" />
+    
+    <!-- Pattern Breakdown: -->
+    <!-- [${APP_NAME}]: Uses the static property above -->
+    <!-- %X{userId:-anonymous}: Pulls 'userId' from MDC. If missing, defaults to 'anonymous' -->
+    <!-- %X{transactionId:-none}: Pulls 'transactionId' from MDC. If missing, defaults to 'none' -->
+    <property name="PATTERN" value="%d{HH:mm:ss.SSS} [${APP_NAME}] [%thread] %-5level %logger{36} [User: %X{userId:-anonymous}] [Tx: %X{transactionId:-none}] - %msg%n" />
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+</configuration>

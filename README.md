@@ -1,54 +1,61 @@
 # 🪵 Learn Logback 🚀
 
-A sleek, minimal, and modern Java project designed to master the fundamentals of **Logback** and **SLF4J**.
+A comprehensive repository for mastering **Logback** and **SLF4J**, from basic configurations to complex custom components.
 
 ---
 
-## 🎨 Log Output Preview
+## 🏗️ How Logback Works (Data Flow)
 
-Experience the power of colorized and structured logging!
+Understanding the lifecycle of a log event is key to mastering Logback.
 
-```bash
-15:09:41.441 [main] TRACE dev.ayam.learn.logback.Main - Trace log - very detailed info.
-15:09:41.442 [main] INFO  dev.ayam.learn.logback.Main - Logging started dynamically!
-15:09:41.442 [main] DEBUG dev.ayam.learn.logback.Main - Debug information is visible...
-15:09:41.442 [main] WARN  dev.ayam.learn.logback.Main - Be careful with those logs!
-15:09:41.442 [main] ERROR dev.ayam.learn.logback.Main - Error logging example!
-```
+1.  **🚀 Logger**: Application call triggers `ILoggingEvent` creation and **MDC** snapshot.
+2.  **⚡ TurboFilter**: Global context-wide filters (e.g., `MDCFilter`) are evaluated first.
+3.  **📏 Effective Level**: Logger verifies if the event level is enabled based on hierarchy.
+4.  **🏗️ Appender**: The event is dispatched to the **Appender List** (respecting **Additivity**).
+5.  **🔍 Filter**: Appender-level **Filters** decide the final fate (`ACCEPT`, `DENY`, `NEUTRAL`).
+6.  **📐 Encoder**: The **Encoder** (or **Layout**) transforms the event into a byte stream.
+7.  **🏁 Destination**: The final target output (Console, File, or Remote server).
 
----
-
-## 🏗️ Core Architecture
-
-This project uses a clean **Gradle** setup with a modern **Version Catalog** (`libs.versions.toml`).
-
-### 📦 Dependencies
-- **SLF4J API**: The standard facade for logging in the Java ecosystem.
-- **Logback Classic**: The native implementation of SLF4J, known for its performance and flexibility.
+> [!TIP]
+> **Performance Tip**: Always use the **SLF4J parameterized logging** (`logger.info("User {} logged in", user);`) instead of string concatenation to avoid unnecessary string creations when the log level is disabled.
 
 ---
 
-## ⚙️ Configuration (`logback.xml`)
+## 📚 Learning Path
 
-Location: `src/main/resources/logback.xml`
+Explore the projects in this sequence to build your knowledge from the ground up:
 
-Our configuration features:
-- **Console Appender**: Color-coded output for high visibility.
-- **Rolling File Appender**: Logs are persistently saved in the `logs/` directory and rotate daily.
-- **Custom Hierarchies**: Different log levels for different packages.
+### 🍼 1. Basic
+*   **[Logback Basic](logback-basic/)**: The absolute entry point. SLF4J setup and basic XML structure.
 
-```xml
-<root level="INFO">
-    <appender-ref ref="CONSOLE" />
-    <appender-ref ref="FILE" />
-</root>
+### ⚓ 2. Built-in Features
+Explore the core batteries-included features of Logback:
+*   **[Logger](logback-logger/)**: Package-specific hierarchies and level management (IT, HR, Sales).
+*   **[Appender](logback-appender/)**: Multi-output strategies (Console and File).
+*   **[Rolling](logback-rolling/)**: File rotation policies (Size, Time, Fixed Window).
+*   **[Filter](logback-filter/)**: Selective logging using `ThresholdFilter` and `LevelFilter`.
+*   **[Context](logback-context/)**: MDC (Mapped Diagnostic Context) for thread-safe session tracking.
+*   **[Async](logback-async/)**: Non-blocking logging using `AsyncAppender` for high-performance apps.
 
-<logger name="dev.ayam" level="TRACE" />
-```
+### 🛠️ 3. Custom Extensions
+Learn how to extend Logback for specific business needs:
+*   **[Custom Logger](logback-custom-logger/)**: Specific configuration for custom packages.
+*   **[Custom Appender](logback-custom-appender/)**: Implementing `AppenderBase`.
+*   **[Custom Encoder](logback-custom-encoder/)**: Implementing `EncoderBase`.
+*   **[Custom Layout](logback-custom-layout/)**: Implementing `LayoutBase`.
+*   **[Custom Rolling](logback-custom-rolling/)**: Implementing custom triggering and rolling policies.
+*   **[Custom Filter](logback-custom-filter/)**: Implementing custom `Filter` logic.
 
 ---
 
-## 🧠 Logging Levels Breakdown
+## ⚡ Cheatsheet
+Need a quick reference for all configuration options?
+Check out the **[Logback Configuration Cheatsheet](CHEATSHEET.md)** for a list of all built-in patterns, appenders, and filters.
+
+---
+
+
+## 🎨 Log Output Levels
 
 | Level | Usage |
 | :--- | :--- |
@@ -60,14 +67,24 @@ Our configuration features:
 
 ---
 
-## 📚 Sample & Tutorial Projects
+## ⚠️ Common Gotchas & Technical Insights
 
-Explore specific modules to learn different Logback features step-by-step:
+> [!IMPORTANT]
+> **MDC & Thread Pools**: MDC is stored in `ThreadLocal`. If you use thread pools (Executors, Parallel Streams), MDC data will **leak** between tasks or be missing unless you explicitly propagate it.
 
-*   **[Logback Basic](logback-basic/)**: The perfect starting point for beginners. Master the `<root>` element, basic console appenders, and logging hierarchies.
-*   **[Logback Appender](logback-appender/)**: Learn how to send logs to multiple destinations. Master `ConsoleAppender`, `FileAppender`, and the basics of multi-destination logging.
-*   **[Logback Logger](logback-logger/)**: Master package-specific logging levels. Learn how to configure different logging strictness for different parts of your application (HR, IT, Sales).
-*   **[Logback Rolling](logback-rolling/)**: Advanced history management. Learn about `RollingFileAppender`, `SizeAndTimeBasedRollingPolicy`, and how to prevent log files from taking over your disk.
+- **`prudent` mode**: Setting `<prudent>true</prudent>` in `FileAppender` allows multiple JVMs to write to the same file safely, but it incurs a significant performance penalty (approx 3x slower).
+- **`includeCallerData`**: In `AsyncAppender`, setting this to `true` is extremely slow because it requires a stack trace snapshot for every log event.
+- **`totalSizeCap`**: This property in `RollingFileAppender` is only checked *after* `maxHistory` processing. It doesn't guarantee the disk will never exceed this limit during a burst of logs.
+
+---
+
+## ✅ Production Checklist
+Before deploying your Logback configuration:
+- [ ] **Level Check**: Ensure `root` level is `INFO` or `WARN` in production.
+- [ ] **Async Logging**: Use `AsyncAppender` for high-throughput applications to prevent blocking.
+- [ ] **Retention Policy**: Always set `maxHistory` and `totalSizeCap` to prevent disk-full incidents.
+- [ ] **Encoding**: Use `UTF-8` explicitly in your encoders to avoid encoding issues across different OS.
+- [ ] **Additivity**: Check if you have duplicate logs in your files caused by parent-child appender inheritance.
 
 ---
 
@@ -77,16 +94,14 @@ Explore specific modules to learn different Logback features step-by-step:
 - JDK 21+
 - Gradle (provided wrapper)
 
-### Commands
-
-**Run a specific module (e.g., Logback Logger):**
+### Run an Example
+Navigate to any module and run:
 ```bash
-./gradlew :logback-logger:run
+./gradlew :<module-name>:run
 ```
-
-**Check the persistent logs (if applicable):**
+Example:
 ```bash
-cat logback-appender/logs/simple-app.log
+./gradlew :logback-rolling:run
 ```
 
 ---
@@ -95,13 +110,17 @@ cat logback-appender/logs/simple-app.log
 
 ```text
 .
-├── logback-basic/     # 🍼 Beginner basics
-├── logback-appender/  # 📁 File & console destinations
-├── logback-logger/    # 📦 Package-specific levels
-├── logback-rolling/   # 🌀 Advanced log rotation
-├── build.gradle.kts   # Project build config
+├── logback-basic/           # Basic configuration
+├── logback-logger/          # Logger levels & packages
+├── logback-appender/        # File & Console destinations
+├── logback-rolling/         # Standard rotation policies
+├── logback-filter/          # Standard filtering
+├── logback-context/         # MDC & Context properties
+├── logback-async/           # Asynchronous appenders
+├── logback-custom-*         # Custom component implementations
+├── build.gradle.kts         # Root build configuration
 └── gradle/
-    └── libs.versions.toml # Dependency management
+    └── libs.versions.toml   # Version management
 ```
 
 ---

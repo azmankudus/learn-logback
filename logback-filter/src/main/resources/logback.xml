@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Define properties -->
+    <property name="LOG_DIR" value="logs" />
+    <property name="PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+    <property name="INFO_LOG_FILE" value="${LOG_DIR}/only-info.log" />
+
+    <!-- ThresholdFilter: Rejects events with level lower than the threshold -->
+    <!-- Events at level INFO/DEBUG will be discarded by this appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- LevelFilter: Decides based on EXACT level match -->
+    <appender name="ONLY_INFO" class="ch.qos.logback.core.FileAppender">
+        <file>${INFO_LOG_FILE}</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <!-- If the level is exactly INFO, accept it -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- If the level is NOT INFO (could be WARN or ERROR), deny it -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Root Logger -->
+    <root level="ALL">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ONLY_INFO" />
+    </root>
+
+</configuration>

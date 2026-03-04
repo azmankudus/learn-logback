@@ -1,41 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
+    <!-- Define properties for modular configuration -->
+    <property name="LOG_DIR" value="logs" />
+    <property name="PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} %msg%n" />
+
+    <!-- File Paths and Patterns -->
+    <property name="SIZE_TIME_FILE" value="${LOG_DIR}/size-time.log" />
+    <property name="SIZE_TIME_ARCHIVE" value="${LOG_DIR}/archived/size-time.%d{yyyy-MM-dd}.%i.log" />
+
+    <property name="TIME_FILE" value="${LOG_DIR}/time-only.log" />
+    <property name="TIME_ARCHIVE" value="${LOG_DIR}/archived/time-only.%d{yyyy-MM-dd}.log" />
+
+    <property name="FIXED_FILE" value="${LOG_DIR}/fixed-window.log" />
+    <property name="FIXED_ARCHIVE" value="${LOG_DIR}/archived/fixed-window.%i.log" />
+
+    <!-- Retention and Rolling Values -->
+    <property name="MAX_FILE_SIZE" value="10KB" />
+    <property name="TOTAL_SIZE_CAP" value="100MB" />
+    <property name="MAX_HISTORY" value="30" />
+    
+    <property name="FIXED_MIN_INDEX" value="1" />
+    <property name="FIXED_MAX_INDEX" value="5" />
+    <property name="FIXED_TRIGGER_SIZE" value="5KB" />
+
     <!-- Console Appender -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} %msg%n</pattern>
+            <pattern>${PATTERN}</pattern>
         </encoder>
     </appender>
 
-    <!-- 1. Rolling File Appender with Size and Time Based Policy -->
-    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/rolling.log</file>
-
-        <!-- The Rolling Policy -->
+    <!-- 1. Size and Time Based Rolling Policy: Rolls by size (10KB) AND by time (Daily) -->
+    <appender name="SIZE_AND_TIME" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${SIZE_TIME_FILE}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!-- 2. Path and naming for archived log files -->
-            <fileNamePattern>logs/archived/rolling.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-
-            <!-- 3. Maximum size of each individual log file (e.g., 10MB) -->
-            <!-- We'll set it small for this lab to force a roll! -->
-            <maxFileSize>10KB</maxFileSize>
-
-            <!-- 4. Total size of all archived logs combined -->
-            <totalSizeCap>100MB</totalSizeCap>
-
-            <!-- 5. How many days to keep the archived logs -->
-            <maxHistory>60</maxHistory>
+            <!-- fileNamePattern defines rotation triggering: %d is date, %i is index for same-day overflows -->
+            <fileNamePattern>${SIZE_TIME_ARCHIVE}</fileNamePattern>
+            <!-- Individual file size limit -->
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <!-- Global limit for all archived logs -->
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+            <!-- How many days of history to keep -->
+            <maxHistory>${MAX_HISTORY}</maxHistory>
         </rollingPolicy>
-
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} %msg%n</pattern>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 2. Time Based Rolling Policy: Only rolls based on time (Daily) -->
+    <appender name="TIME_BASED" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${TIME_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${TIME_ARCHIVE}</fileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 3. Fixed Window Rolling Policy: Renames files progressively (e.g. log.1, log.2) -->
+    <appender name="FIXED_WINDOW" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FIXED_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${FIXED_ARCHIVE}</fileNamePattern>
+            <minIndex>${FIXED_MIN_INDEX}</minIndex>
+            <maxIndex>${FIXED_MAX_INDEX}</maxIndex>
+        </rollingPolicy>
+        <!-- FixedWindow requires an explicit TriggeringPolicy (usually size-based) -->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>${FIXED_TRIGGER_SIZE}</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
         </encoder>
     </appender>
 
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
-        <appender-ref ref="ROLLING" />
+        <appender-ref ref="SIZE_AND_TIME" />
+        <appender-ref ref="TIME_BASED" />
+        <appender-ref ref="FIXED_WINDOW" />
     </root>
 
 </configuration>

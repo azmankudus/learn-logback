@@ -1,43 +1,81 @@
-# 🚫 Deny all files by default
+# Ignore everything by default
 *
 
-# 🚨 Allow essential directories for recursion
-!**/
+# Include root config and metadata files
+!/.gitignore
+!/.editorconfig
+!/build.gradle.kts
+!/settings.gradle.kts
+!/gradle.properties
+!/REQUIREMENTS.md
+!/README.md
+!/AGENTS.md
+!/PROMPTS.md
+!/SKILL.md
+!/LICENSE
+!/CONTRIBUTORS.md
+!/CODE_OF_CONDUCT.md
+!/SECURITY.md
 
-# 📄 Global repository files
-!.gitignore
-!LICENSE
-!README.md
+# Project folders
+!/logback-basic/
+!/logback-basic/**
+!/logback-logger/
+!/logback-logger/**
+!/logback-appender/
+!/logback-appender/**
+!/logback-rolling/
+!/logback-rolling/**
+!/logback-filter/
+!/logback-filter/**
+!/logback-context/
+!/logback-context/**
+!/logback-async/
+!/logback-async/**
+!/logback-custom-logger/
+!/logback-custom-logger/**
+!/logback-custom-appender/
+!/logback-custom-appender/**
+!/logback-custom-encoder/
+!/logback-custom-encoder/**
+!/logback-custom-layout/
+!/logback-custom-layout/**
+!/logback-custom-rolling/
+!/logback-custom-rolling/**
+!/logback-custom-filter/
+!/logback-custom-filter/**
 
-# 🏗️ Common
-!**/build.gradle.kts
-!**/settings.gradle.kts
-!**/gradle.properties
-!**/gradlew
-!**/gradlew.bat
-!**/README.md
+# Build artifacts and caches within modules
+**/.gradle/
+**/.kotlin/
+**/.DS_Store/
+**/.output/
+**/.vinxi/
+**/.nitro/
+**/.settings/
+**/.classpath/
+**/.project/
+**/.factorypath/
+**/.idea/
+**/.vscode/
+**/bin/
+**/build/
+**/target/
+**/out/
+**/dist/
+**/node_modules/
+**/*.class
+**/*.jar
+**/*.lock
+**/*.log
+**/*.log.zip
+**/*.log.gz
+**/*.db
+**/*.tmp
+**/*.bkp
+**/*.bak
 
-# 📦 Projects
-!logback-basic/gradle/**
-!logback-basic/src/**
-!logback-logger/gradle/**
-!logback-logger/src/**
-!logback-appender/gradle/**
-!logback-appender/src/**
-!logback-rolling/gradle/**
-!logback-rolling/src/**
+# Gradle 
+!**/gradle/
+!**/gradle/**
 
-# =============================================================================
-# 🛑 COMMON EXCLUSIONS (Still explicitly excluded for safety)
-# =============================================================================
-.gradle/
-build/
-out/
-bin/
-.vscode/
-.idea/
-*.iml
-logs/
-*.log
-*.class
-*.jar

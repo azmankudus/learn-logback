@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <!-- 1. Define a property: Acts just like a variable in code -->
-    <!-- This allows you to centralize configurations like patterns or file paths -->
-    <property name="MY_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n" />
+    <property name="PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
 
     <!-- 2. Console Appender: Using the defined property via ${PROPERTY_NAME} syntax -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>${MY_PATTERN}</pattern>
+            <pattern>${PATTERN}</pattern>
         </encoder>
     </appender>
 
+
+    <!-- Specific loggers for different packages/modules -->
+    <!-- Loggers follow a hierarchical naming convention (e.g. dev.ayam inherits from dev) -->
+    
+    <!-- HR department only wants to see INFO and above -->
     <logger name="dev.ayam.learn.logback.hr" level="INFO" />
+    
+    <!-- IT department wants more detail (DEBUG) -->
     <logger name="dev.ayam.learn.logback.it" level="DEBUG" />
+    
+    <!-- Sales wants the most granular level (TRACE) -->
     <logger name="dev.ayam.learn.logback.sales" level="TRACE" />
 
-    <!-- Root Logger -->
+    <!-- Root logger acts as the global default for all loggers not specified above -->
+    <!-- Setting it to ERROR means unexpected logs from other packages won't clutter the console -->
     <root level="ERROR">
         <appender-ref ref="CONSOLE" />
     </root>

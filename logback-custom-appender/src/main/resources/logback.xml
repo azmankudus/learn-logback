@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Configure the custom appender -->
+    <!-- Logback automatically uses setter methods (e.g. setPrefix) based on XML element names -->
+    <appender name="MY_CUSTOM" class="dev.ayam.learn.logback.custom.PrefixCustomAppender">
+        <prefix>[MY-LOG]</prefix>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="MY_CUSTOM" />
+    </root>
+
+</configuration>

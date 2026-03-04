@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <!-- 1. Define a property: Acts just like a variable in code -->
-    <!-- This allows you to centralize configurations like patterns or file paths -->
-    <property name="MY_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n" />
+    <!-- Properties allow for reusable values throughout the configuration -->
+    <!-- %d: date, %thread: thread name, %-5level: 5-char justified level, %logger: class name, %msg: log message -->
+    <property name="PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
 
-    <!-- 2. Console Appender: Using the defined property via ${PROPERTY_NAME} syntax -->
+    <!-- ConsoleAppender outputs logs directly to System.out or System.err -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>${MY_PATTERN}</pattern>
+            <!-- Encoders translate events into byte arrays and write them to output streams -->
+            <pattern>${PATTERN}</pattern>
         </encoder>
     </appender>
 
-    <!-- Root Logger -->
-    <root level="INFO">
+
+    <!-- Root logger is the top-level logger that acts as a fallback for all log messages -->
+    <root level="DEBUG">
         <appender-ref ref="CONSOLE" />
     </root>
 

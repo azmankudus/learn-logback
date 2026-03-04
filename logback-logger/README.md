@@ -1,85 +1,32 @@
-# 🪵 Logback: Multi-Package Loggers 🚀
+# 📦 Logback Logger
 
-Welcome to the **Multi-Package Loggers** module! This project demonstrates how to configure different logging levels for different packages in your Java application.
+Master the art of **Hierarchical Logging**!
 
----
+## 🎯 Learning Objective
+In this module, you will learn how to configure different parts of your application with different logging strictness. You will master:
+- **Logger Names**: Using package names as identifiers.
+- **Hierarchy & Inheritance**: How children loggers interact with parents.
+- **Level Precedence**: How a specific `<logger>` level overrides the `<root>` level.
 
-## 🏗️ The Problem: One Level Doesn't Fit All
+## 💡 Key Facts
+1.  **Named Loggers**: Loggers are named entities. Their names are case-sensitive and they follow the hierarchical naming rule (e.g., `a.b` is a parent of `a.b.c`).
+2.  **Additivity**: By default, a logger will send its output to its own appenders AND to the appenders of its ancestors. This is called "Additivity". If you set `additivity="false"`, the chain is broken.
+3.  **Root fallback**: If a logger isn't explicitly configured, it inherits the level of its nearest ancestor. Eventually, everything falls back to the `root` logger.
 
-In a real application, you might want:
-*   **HR Module**: Only `INFO` level (to keep it clean).
-*   **IT Module**: `DEBUG` level (to help troubleshooting).
-*   **Sales Module**: `TRACE` level (maximum visibility for every action).
+> [!TIP]
+> **Performance Tip**: When possible, use **Class-level Loggers** (`LoggerFactory.getLogger(MyClass.class)`). It's a standard pattern that makes it easy to trace logs back to their source and allows for granular configuration at the class level if needed.
 
-Logback allows you to achieve this using the `<logger>` element.
+## 🏢 Business Case Example
+In this project, we simulate three departments:
+- **HR**: Requires stability, only logs `INFO` and above.
+- **IT**: Needs troubleshooting data, logs `DEBUG`.
+- **Sales**: Needs trace-level auditing for every transaction, logs `TRACE`.
+- **System**: Everything else is set to `ERROR` to reduce noise.
 
----
-
-## 🛠️ Configuration (`logback.xml`)
-
-Instead of just a single `<root>` logger, we define specific loggers for our packages:
-
-```xml
-<!-- 1. HR Package: Only INFO and above -->
-<logger name="dev.ayam.learn.logback.hr" level="INFO">
-    <appender-ref ref="CONSOLE" />
-</logger>
-
-<!-- 2. IT Package: DEBUG and above -->
-<logger name="dev.ayam.learn.logback.it" level="DEBUG">
-    <appender-ref ref="CONSOLE" />
-</logger>
-
-<!-- 3. Sales Package: Everything (TRACE) -->
-<logger name="dev.ayam.learn.logback.sales" level="TRACE">
-    <appender-ref ref="CONSOLE" />
-</logger>
-
-<!-- Root Logger: Acts as a fallback for everything else -->
-<root level="ERROR">
-    <appender-ref ref="CONSOLE" />
-</root>
+## 🚀 Run the Example
+```bash
+./gradlew :logback-logger:run
 ```
 
 ---
-
-## 🔝 Additivity Node
-
-By default, if you define a logger for a package, it still "bubbles up" to the root logger. This is called **Additivity**. 
-*   If we didn't add `<appender-ref ref="CONSOLE" />` inside each logger, they would use the Root's appenders.
-*   If we **do** add them (like above), logs might appear **twice** if the root also has the same appender! 😲
-*   To prevent this, you can set `additivity="false"` on the logger.
-
----
-
-## 🚀 Lab: See it in Action
-
-1. Run the application:
-   ```bash
-   cd logback-logger && ./gradlew run
-   ```
-
-2. **Observe the differences**:
-   *   **HR Logs**: You will only see `INFO`, `WARN`, and `ERROR`. `TRACE` and `DEBUG` are filtered out because HR is set to `INFO`.
-   *   **IT Logs**: You will see `DEBUG`, `INFO`, `WARN`, and `ERROR`. Only `TRACE` is filtered out because IT is set to `DEBUG`.
-   *   **Sales Logs**: You will see **ALL** logs (TRACE, DEBUG, INFO, WARN, ERROR) because Sales is set to `TRACE`.
-
-3. **Check for Redundant Logs**:
-   In the initial configuration, logs appeared twice! This happened because they were sent to the `CONSOLE` appender by the package logger AND reached the Root logger's `CONSOLE` appender. We fixed this by removing the redundant `appender-ref` from the specific loggers, letting them inherit the root's appender instead.
-
----
-
-## 📂 Project Structure
-
-```text
-logback-logger/
-├── hr/
-│   └── HrAction.java    (INFO level)
-├── it/
-│   └── ItAction.java    (DEBUG level)
-└── sales/
-    └── SalesAction.java (TRACE level)
-```
-
----
-*Master the package structure, master the logs!* 🪵
+*Next Step: Explore [Logback Appender](../logback-appender/) to learn about sending logs to files!*

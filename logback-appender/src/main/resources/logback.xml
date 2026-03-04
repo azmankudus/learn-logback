@@ -1,42 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <!-- 1. Define a Property for the Log Directory -->
+    <!-- Define properties for modular configuration -->
     <property name="LOG_DIR" value="logs" />
+    <property name="IT_LOG_FILE" value="${LOG_DIR}/it-app.log" />
+    <property name="HR_LOG_FILE" value="${LOG_DIR}/hr-report.html" />
+    
+    <property name="CONSOLE_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n" />
+    <property name="FILE_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n" />
+    <property name="HTML_PATTERN" value="%relative%thread%level%logger%msg" />
 
-    <!-- 2. Console Appender: Instant feedback in terminal -->
+    <!-- 1. Console Appender (Targeting STDOUT) -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+            <pattern>${CONSOLE_PATTERN}</pattern>
         </encoder>
     </appender>
 
-    <!-- 3. Simple File Appender -->
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>${LOG_DIR}/simple-app.log</file>
+    <!-- 2. File Appender: Writes logs to a static file -->
+    <appender name="IT_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${IT_LOG_FILE}</file>
+        <!-- append=true ensures we don't overwrite the log on restart -->
         <append>true</append>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+            <pattern>${FILE_PATTERN}</pattern>
         </encoder>
     </appender>
 
-    <!-- 4. Rolling File Appender -->
-    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_DIR}/rolling-app.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_DIR}/archived/rolling-app.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+    <!-- 3. HTML File Appender: Uses HTMLLayout to generate formatted reports -->
+    <appender name="HR_HTML" class="ch.qos.logback.core.FileAppender">
+        <file>${HR_LOG_FILE}</file>
+        <!-- HTMLLayout requires LayoutWrappingEncoder -->
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.classic.html.HTMLLayout">
+                <pattern>${HTML_PATTERN}</pattern>
+            </layout>
         </encoder>
     </appender>
 
-    <!-- Root Logger: Sends all logs to all three appenders -->
-    <root level="INFO">
+    <!-- 4. Syslog Appender (For Sales department) -->
+    <appender name="SALES_SYSLOG" class="ch.qos.logback.classic.net.SyslogAppender">
+        <syslogHost>localhost</syslogHost>
+        <facility>USER</facility>
+        <suffixPattern>[%thread] %logger %msg</suffixPattern>
+    </appender>
+
+    <!-- Package-level Loggers -->
+    <!-- These inherit CONSOLE from ROOT and add their own specific appender -->
+    
+    <!-- IT dept: We disable additivity to prevent logs from showing up twice in Console (since ROOT also has CONSOLE) -->
+    <logger name="dev.ayam.learn.logback.it" level="DEBUG" additivity="false">
+        <appender-ref ref="IT_FILE" />
         <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FILE" />
-        <appender-ref ref="ROLLING" />
+    </logger>
+
+    <!-- HR dept: Only logs to HTML -->
+    <logger name="dev.ayam.learn.logback.hr" level="INFO" additivity="false">
+        <appender-ref ref="HR_HTML" />
+        <appender-ref ref="CONSOLE" />
+    </logger>
+
+    <!-- Sales dept: Logs to Syslog (local) and Console -->
+    <logger name="dev.ayam.learn.logback.sales" level="TRACE" additivity="false">
+        <appender-ref ref="SALES_SYSLOG" />
+        <appender-ref ref="CONSOLE" />
+    </logger>
+
+    <!-- Root Logger: Assigned only to CONSOLE -->
+    <root level="ERROR">
+        <appender-ref ref="CONSOLE" />
     </root>
 
 </configuration>

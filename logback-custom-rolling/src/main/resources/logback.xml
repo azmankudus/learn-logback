@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOG_DIR" value="logs" />
+    <property name="PATTERN" value="%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n" />
+
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/custom-rolling.log</file>
+        
+        <!-- TriggeringPolicy: Decides WHEN to roll -->
+        <triggeringPolicy class="dev.ayam.learn.logback.custom.CountCustomTriggeringPolicy">
+            <maxCount>5</maxCount>
+        </triggeringPolicy>
+
+        <!-- RollingPolicy: Decides HOW to archive the logs once triggered -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/custom-rolling.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>3</maxIndex>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="ROLLING" />
+    </root>
+
+</configuration>

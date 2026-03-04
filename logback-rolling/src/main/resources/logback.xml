@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Console Appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 1. Rolling File Appender with Size and Time Based Policy -->
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/rolling.log</file>
+
+        <!-- The Rolling Policy -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 2. Path and naming for archived log files -->
+            <fileNamePattern>logs/archived/rolling.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+
+            <!-- 3. Maximum size of each individual log file (e.g., 10MB) -->
+            <!-- We'll set it small for this lab to force a roll! -->
+            <maxFileSize>10KB</maxFileSize>
+
+            <!-- 4. Total size of all archived logs combined -->
+            <totalSizeCap>100MB</totalSizeCap>
+
+            <!-- 5. How many days to keep the archived logs -->
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ROLLING" />
+    </root>
+
+</configuration>

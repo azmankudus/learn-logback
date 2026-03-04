@@ -65,6 +65,8 @@ Our configuration features:
 Explore specific modules to learn different Logback features step-by-step:
 
 *   **[Logback Basic](logback-basic/)**: The perfect starting point for beginners. Master the `<root>` element, basic console appenders, and logging hierarchies.
+*   **[Logback Appender](logback-appender/)**: Learn how to send logs to multiple destinations. Master `ConsoleAppender`, `FileAppender`, and the basics of multi-destination logging.
+*   **[Logback Rolling](logback-rolling/)**: Advanced history management. Learn about `RollingFileAppender`, `SizeAndTimeBasedRollingPolicy`, and how to prevent log files from taking over your disk.
 
 ---
 

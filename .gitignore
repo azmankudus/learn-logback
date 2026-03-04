@@ -9,19 +9,21 @@
 !LICENSE
 !README.md
 
-# 🏗️ Logback Basic module - Build environment
-!logback-basic/build.gradle.kts
-!logback-basic/settings.gradle.kts
-!logback-basic/gradle.properties
-!logback-basic/gradlew
-!logback-basic/gradlew.bat
+# 🏗️ Common
+!**/build.gradle.kts
+!**/settings.gradle.kts
+!**/gradle.properties
+!**/gradlew
+!**/gradlew.bat
+!**/README.md
 
-# 📦 Logback Basic module - Dependencies & Source
+# 📦 Projects
 !logback-basic/gradle/**
 !logback-basic/src/**
-
-# 📚 Logback Basic module - Documentation
-!logback-basic/README.md
+!logback-appender/gradle/**
+!logback-appender/src/**
+!logback-rolling/gradle/**
+!logback-rolling/src/**
 
 # =============================================================================
 # 🛑 COMMON EXCLUSIONS (Still explicitly excluded for safety)

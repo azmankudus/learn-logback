@@ -1,24 +1,46 @@
+<a id="top"></a>
+<a href="../README.md" style="float: right;">Direct back to main</a>
+
 # 🛠️ Logback Custom Filter
 
 Build your own **Log Gatekeeper**!
 
-## 🎯 Learning Objective
-In this module, you will learn how to implement custom filtering logic based on business requirements. You will master:
+---
+
+## 📑 Table of Contents
+- <a href="#learning-objective">🎯 Learning Objective</a>
+- <a href="#key-facts">💡 Key Facts</a>
+- <a href="#implementation">🧪 Implementation Detail</a>
+- <a href="#run-example">🚀 Run the Example</a>
+
+---
+
+<a id="learning-objective"></a>
+## 🎯 Learning Objective <a href="#top" style="float: right;">🔝</a>
+In this module, you will learn how to implement custom filtering logic. You will master:
 - **Filter Interface**: Implementing the `decide()` method.
 - **FilterReply**: Using `ACCEPT`, `DENY`, and `NEUTRAL`.
-- **Content Filtering**: Inspecting the message content to make decisions.
+- **Content Filtering**: Inspecting message content.
 
-## 💡 Key Facts
-1.  **Flexibility**: Custom filters can do anything: check remote APIs, inspect the current user context, or scan for sensitive keywords.
-2.  **NEUTRAL is Key**: Returning `NEUTRAL` is often better than `ACCEPT` because it avoids overriding subsequent filters in the chain.
-3.  **Inheritance**: The custom filter receives the `ILoggingEvent` object, which contains all the metadata about the log call (level, logger name, thread, MDC, etc.).
+---
 
-## 🧪 Implementation Detail
+<a id="key-facts"></a>
+## 💡 Key Facts <a href="#top" style="float: right;">🔝</a>
+1.  **Flexibility**: Custom filters can check APIs or inspect user context.
+2.  **NEUTRAL is Key**: Allows subsequent filters to be consulted.
+3.  **Metadata Access**: Receives `ILoggingEvent` with all metadata.
+
+---
+
+<a id="implementation"></a>
+## 🧪 Implementation Detail <a href="#top" style="float: right;">🔝</a>
 -   **Class**: `WordCustomFilter`
--   **Purpose**: To detect specific **forbidden words** (like `SECRET`) and prevent them from being printed to the console.
--   **Configuration**: The forbidden word is set via the `<word>` element in `logback.xml`.
+-   **Purpose**: Detect **forbidden words** (like `SECRET`) and prevent printing.
 
-## 🚀 Run the Example
+---
+
+<a id="run-example"></a>
+## 🚀 Run the Example <a href="#top" style="float: right;">🔝</a>
 ```bash
 ./gradlew :logback-custom-filter:run
 ```

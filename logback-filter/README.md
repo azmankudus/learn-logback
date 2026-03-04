@@ -1,27 +1,50 @@
+<a id="top"></a>
+<a href="../README.md" style="float: right;">Direct back to main</a>
+
 # 🔍 Logback Filter
 
 Master the art of **Selective Logging**!
 
-## 🎯 Learning Objective
+---
+
+## 📑 Table of Contents
+- <a href="#learning-objective">🎯 Learning Objective</a>
+- <a href="#key-facts">💡 Key Facts</a>
+- <a href="#strategies">🧪 Strategies Demonstrated</a>
+- <a href="#run-example">🚀 Run the Example</a>
+
+---
+
+<a id="learning-objective"></a>
+## 🎯 Learning Objective <a href="#top" style="float: right;">🔝</a>
 In this module, you will learn how to discard or keep specific log messages based on criteria other than just the package name. You will master:
 - **ThresholdFilter**: Blocking logs below a certain level.
 - **LevelFilter**: Exact level matching (ignoring higher levels too).
 - **Filter Lifecycle**: `NEUTRAL`, `ACCEPT`, and `DENY` responses.
 
-## 💡 Key Facts
+---
+
+<a id="key-facts"></a>
+## 💡 Key Facts <a href="#top" style="float: right;">🔝</a>
 1.  **Filter Reply**: A filter returns one of three values:
     - `DENY`: The event is skipped immediately.
-    - `NEUTRAL`: The next filter in the chain (if any) is consulted. If no more filters, the event is processed.
-    - `ACCEPT`: The event is processed immediately, skipping any remaining filters.
+    - `NEUTRAL`: The next filter in the chain (if any) is consulted.
+    - `ACCEPT`: The event is processed immediately.
 2.  **Appender Filters**: These filters are attached to a specific appender. They only affect that appender's output.
-3.  **TurboFilters**: (Advanced) These are global and are called *before* the logging event is even created, making them highly performant.
+3.  **TurboFilters**: (Advanced) These are global and are called *before* the logging event is even created.
 
-## 🧪 Strategies Demonstrated
--   **High Transparency Root**: We set the root level to `ALL` to capture everything.
--   **Selective Console**: We use a `ThresholdFilter` to only show `WARN` and `ERROR` on the console, preventing information overload.
--   **Precision File**: We use a `LevelFilter` to capture **only** `INFO` logs in a specific file. Even `ERROR` logs are excluded from this file!
+---
 
-## 🚀 Run the Example
+<a id="strategies"></a>
+## 🧪 Strategies Demonstrated <a href="#top" style="float: right;">🔝</a>
+-   **High Transparency Root**: Capture everything at the root level.
+-   **Selective Console**: Use `ThresholdFilter` to only show `WARN` and `ERROR`.
+-   **Precision File**: Use `LevelFilter` to capture **only** `INFO` logs.
+
+---
+
+<a id="run-example"></a>
+## 🚀 Run the Example <a href="#top" style="float: right;">🔝</a>
 ```bash
 ./gradlew :logback-filter:run
 ```

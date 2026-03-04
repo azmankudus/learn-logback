@@ -1,19 +1,38 @@
+<a id="top"></a>
+<a href="../README.md" style="float: right;">Direct back to main</a>
+
 # 🔀 Logback Condition
 
 Master **Conditional Configuration** for environment-specific logging!
 
-## 🎯 Learning Objective
-In this module, you'll learn how to use conditional logic within your `logback.xml` to adapt your logging behavior based on the environment (e.g., Development vs. Production). You will master:
+---
+
+## 📑 Table of Contents
+- <a href="#learning-objective">🎯 Learning Objective</a>
+- <a href="#key-facts">💡 Key Facts</a>
+- <a href="#run-example">🚀 Run the Example</a>
+
+---
+
+<a id="learning-objective"></a>
+## 🎯 Learning Objective <a href="#top" style="float: right;">🔝</a>
+In this module, you'll adapt logging behavior based on the environment. You will master:
 - Using `<if>`, `<then>`, and `<else>` tags.
-- Integrating the **Janino** library for Java-based expression evaluation.
-- Accessing system properties and environment variables in conditions.
+- Integrating **Janino** for expression evaluation.
+- Accessing system properties and environment variables.
 
-## 💡 Key Facts
-1.  **Janino Dependency**: Conditional processing requires the Janino library on the classpath.
-2.  **Flexible Logic**: You can use any valid Java expression in the `condition` attribute of the `<if>` tag.
-3.  **Dynamic Properties**: Conditions can check for the existence of properties, specific values, or even complex boolean logic.
+---
 
-## 🚀 Run the Example
+<a id="key-facts"></a>
+## 💡 Key Facts <a href="#top" style="float: right;">🔝</a>
+1.  **Janino Dependency**: Required on the classpath for conditional logic.
+2.  **Flexible Logic**: Use any valid Java expression in `condition`.
+3.  **Dynamic Properties**: Check for properties, values, or complex boolean logic.
+
+---
+
+<a id="run-example"></a>
+## 🚀 Run the Example <a href="#top" style="float: right;">🔝</a>
 ```bash
 # Run with default (Development) settings
 ./gradlew :logback-condition:run

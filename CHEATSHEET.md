@@ -1,10 +1,26 @@
+<a id="top"></a>
 # ⚡ Logback Configuration Cheatsheet
 
 A comprehensive reference for Logback configuration elements, conversion patterns, and built-in components.
 
 ---
 
-## ⚡ Core Configuration Attributes
+## 📑 Table of Contents
+- <a href="#core-attributes">⚡ Core Configuration Attributes</a>
+- <a href="#layout-patterns">🎨 Layout Patterns</a>
+- <a href="#appenders">🛠️ Built-in Appenders</a>
+- <a href="#rolling-policies">📜 Rolling Policies</a>
+- <a href="#encoders">🏗️ Encoders</a>
+- <a href="#triggering-policies">⏱️ Triggering Policies</a>
+- <a href="#filters">🔍 Filters</a>
+- <a href="#conditional-logic">🔀 Conditional Logic</a>
+- <a href="#log-levels">🌓 Log Levels</a>
+- <a href="#quick-tips">💡 Quick Tips</a>
+
+---
+
+<a id="core-attributes"></a>
+## ⚡ Core Configuration Attributes <a href="#top" style="float: right;">🔝</a>
 Added to the root `<configuration>` tag.
 
 | Attribute | Description | Example |
@@ -15,7 +31,8 @@ Added to the root `<configuration>` tag.
 
 ---
 
-## 🎨 Layout Patterns (Conversion Specifiers)
+<a id="layout-patterns"></a>
+## 🎨 Layout Patterns (Conversion Specifiers) <a href="#top" style="float: right;">🔝</a>
 Used in `<pattern>` strings within encoders.
 
 | Specifier | Name | Performance | Description |
@@ -32,13 +49,15 @@ Used in `<pattern>` strings within encoders.
 | `%C`, `%class` | Class | **Very High** | Fully qualified class name of the caller (Slow!). |
 | `%M`, `%method` | Method | **Very High** | Method name from which log was issued (Slow!). |
 | `%marker` | Marker | Low | The marker (tag) associated with the log event. |
+| `%kvp` | Key-Value Pair | Low | The key-value pairs associated with the event (SLF4J 2.0+). |
 | `%X`, `%mdc` | MDC | Low | Mapped Diagnostic Context value: `%X{key}`. |
 | `%highlight(...)` | Highlight | Moderate | Formats color according to level (ERROR=red, etc.). |
 | `%cyan(...)`, etc. | Color | Low | Colors text inside parentheses (e.g., `%cyan(%logger)`). |
 
 ---
 
-## 🛠️ Built-in Appenders
+<a id="appenders"></a>
+## 🛠️ Built-in Appenders <a href="#top" style="float: right;">🔝</a>
 Appenders are responsible for writing log events to different destinations.
 
 ### 1. `ConsoleAppender`
@@ -82,7 +101,8 @@ Sends logging events to a remote server over TCP.
 
 ---
 
-## 📜 Rolling Policies
+<a id="rolling-policies"></a>
+## 📜 Rolling Policies <a href="#top" style="float: right;">🔝</a>
 Used within `RollingFileAppender`.
 
 | Policy | Description | Key Properties |
@@ -93,7 +113,8 @@ Used within `RollingFileAppender`.
 
 ---
 
-## 🏗️ Encoders
+<a id="encoders"></a>
+## 🏗️ Encoders <a href="#top" style="float: right;">🔝</a>
 Encoders transform logging events into byte arrays.
 
 | Class | Description | Key Properties |
@@ -103,7 +124,8 @@ Encoders transform logging events into byte arrays.
 
 ---
 
-## ⏱️ Triggering Policies
+<a id="triggering-policies"></a>
+## ⏱️ Triggering Policies <a href="#top" style="float: right;">🔝</a>
 Used within `RollingFileAppender` to decide "when" to roll.
 
 | Policy | Description | Key Properties |
@@ -113,7 +135,8 @@ Used within `RollingFileAppender` to decide "when" to roll.
 
 ---
 
-## 🔍 Filters
+<a id="filters"></a>
+## 🔍 Filters <a href="#top" style="float: right;">🔝</a>
 Filters allow you to decide whether a log event should be processed.
 
 ### Regular Filters (attached to Appenders)
@@ -132,7 +155,8 @@ Filters allow you to decide whether a log event should be processed.
 
 ---
 
-## 🔀 Conditional Logic
+<a id="conditional-logic"></a>
+## 🔀 Conditional Logic <a href="#top" style="float: right;">🔝</a>
 Requires the **Janino** library on the classpath.
 
 ```xml
@@ -148,7 +172,8 @@ Requires the **Janino** library on the classpath.
 
 ---
 
-## 🌓 Log Levels
+<a id="log-levels"></a>
+## 🌓 Log Levels <a href="#top" style="float: right;">🔝</a>
 Hierarchy (from highest to lowest):
 1. `OFF`
 2. `ERROR`
@@ -160,7 +185,8 @@ Hierarchy (from highest to lowest):
 
 ---
 
-## 💡 Quick Tips
+<a id="quick-tips"></a>
+## 💡 Quick Tips <a href="#top" style="float: right;">🔝</a>
 - **Additivity**: By default, loggers inherit appenders from their parents. Set `<logger additivity="false">` to stop this behavior.
 - **Strictness**: Use `<configuration debug="true">` at the root of `logback.xml` to see Logback's internal status logs during initialization.
 - **Variables**: Use `${property_name}` to reference properties defined at the top of the file.

@@ -1,10 +1,27 @@
+<a id="top"></a>
 # 🪵 Learn Logback 🚀
 
 A comprehensive repository for mastering **Logback** and **SLF4J**, from basic configurations to complex custom components.
 
 ---
 
-## 🏗️ How Logback Works (Data Flow)
+## 📑 Table of Contents
+- <a href="#data-flow">🏗️ How Logback Works (Data Flow)</a>
+- <a href="#why-logback">🤔 Why Logback?</a>
+- <a href="#learning-path">📚 Learning Path</a>
+- <a href="#best-practices">🏛️ Best Practices</a>
+- <a href="#cheatsheet">⚡ Cheatsheet</a>
+- <a href="#log-levels">🎨 Log Output Levels</a>
+- <a href="#gotchas">⚠️ Common Gotchas & Technical Insights</a>
+- <a href="#checklist">✅ Production Checklist</a>
+- <a href="#getting-started">🚀 Getting Started</a>
+- <a href="#project-structure">📂 Project Structure</a>
+- <a href="#license">🛡️ License</a>
+
+---
+
+<a id="data-flow"></a>
+## 🏗️ How Logback Works (Data Flow) <a href="#top" style="float: right;">🔝</a>
 
 Understanding the lifecycle of a log event is key to mastering Logback.
 
@@ -24,7 +41,8 @@ Understanding the lifecycle of a log event is key to mastering Logback.
 
 ---
 
-## 🤔 Why Logback?
+<a id="why-logback"></a>
+## 🤔 Why Logback? <a href="#top" style="float: right;">🔝</a>
 Logback is the successor to the popular log4j project, picking up where log4j 1.x left off.
 - **Native SLF4J Support**: Logback implements the SLF4J API natively, which means ZERO overhead when calling the logger.
 - **Performance**: It's significantly faster and has a smaller memory footprint than its predecessors.
@@ -33,7 +51,8 @@ Logback is the successor to the popular log4j project, picking up where log4j 1.
 
 ---
 
-## 📚 Learning Path
+<a id="learning-path"></a>
+## 📚 Learning Path <a href="#top" style="float: right;">🔝</a>
 
 Explore the projects in this sequence to build your knowledge from the ground up:
 
@@ -64,7 +83,8 @@ Learn how to extend Logback for specific business needs:
 
 ---
 
-## 🏛️ Best Practices: Logging Levels in Production
+<a id="best-practices"></a>
+## 🏛️ Best Practices: Logging Levels in Production <a href="#top" style="float: right;">🔝</a>
 - **`ERROR`**: Failures that require immediate attention (e.g., database down).
 - **`WARN`**: Minor issues that might need investigation (e.g., slow performance).
 - **`INFO`**: Key business events. This is your default for production.
@@ -76,14 +96,15 @@ Learn how to extend Logback for specific business needs:
 
 ---
 
-## ⚡ Cheatsheet
+<a id="cheatsheet"></a>
+## ⚡ Cheatsheet <a href="#top" style="float: right;">🔝</a>
 Need a quick reference for all configuration options?
 Check out the **[Logback Configuration Cheatsheet](CHEATSHEET.md)** for a list of all built-in patterns, appenders, and filters.
 
 ---
 
-
-## 🎨 Log Output Levels
+<a id="log-levels"></a>
+## 🎨 Log Output Levels <a href="#top" style="float: right;">🔝</a>
 
 | Level | Usage |
 | :--- | :--- |
@@ -95,7 +116,8 @@ Check out the **[Logback Configuration Cheatsheet](CHEATSHEET.md)** for a list o
 
 ---
 
-## ⚠️ Common Gotchas & Technical Insights
+<a id="gotchas"></a>
+## ⚠️ Common Gotchas & Technical Insights <a href="#top" style="float: right;">🔝</a>
 
 > [!IMPORTANT]
 > **MDC & Thread Pools**: MDC is stored in `ThreadLocal`. If you use thread pools (Executors, Parallel Streams), MDC data will **leak** between tasks or be missing unless you explicitly propagate it.
@@ -106,7 +128,8 @@ Check out the **[Logback Configuration Cheatsheet](CHEATSHEET.md)** for a list o
 
 ---
 
-## ✅ Production Checklist
+<a id="checklist"></a>
+## ✅ Production Checklist <a href="#top" style="float: right;">🔝</a>
 Before deploying your Logback configuration:
 - [ ] **Level Check**: Ensure `root` level is `INFO` or `WARN` in production.
 - [ ] **Async Logging**: Use `AsyncAppender` for high-throughput applications to prevent blocking.
@@ -116,7 +139,8 @@ Before deploying your Logback configuration:
 
 ---
 
-## 🚀 Getting Started
+<a id="getting-started"></a>
+## 🚀 Getting Started <a href="#top" style="float: right;">🔝</a>
 
 ### Prerequisites
 - JDK 21+
@@ -134,7 +158,8 @@ Example:
 
 ---
 
-## 📂 Project Structure
+<a id="project-structure"></a>
+## 📂 Project Structure <a href="#top" style="float: right;">🔝</a>
 
 ```text
 .
@@ -145,9 +170,9 @@ Example:
 ├── logback-filter/          # Standard filtering
 ├── logback-context/         # MDC & Context properties
 ├── logback-async/           # Asynchronous appenders
-├── logback-context/         # MDC & Context properties
 ├── logback-markers/         # Marker-based logging
 ├── logback-condition/       # Conditional configuration
+├── logback-fluent/          # Fluent API examples
 ├── logback-custom-*         # Custom component implementations
 ├── build.gradle.kts         # Root build configuration
 └── gradle/
@@ -156,7 +181,8 @@ Example:
 
 ---
 
-## 🛡️ License
+<a id="license"></a>
+## 🛡️ License <a href="#top" style="float: right;">🔝</a>
 Released under the [MIT License](LICENSE).
 
 ---

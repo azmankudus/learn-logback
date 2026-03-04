@@ -1,25 +1,47 @@
+<a id="top"></a>
+<a href="../README.md" style="float: right;">Direct back to main</a>
+
 # 🛠️ Logback Custom Rolling
 
 Master the art of **Advanced File Rotation**!
 
-## 🎯 Learning Objective
+---
+
+## 📑 Table of Contents
+- <a href="#learning-objective">🎯 Learning Objective</a>
+- <a href="#key-facts">💡 Key Facts</a>
+- <a href="#implementation">🧪 Implementation Detail</a>
+- <a href="#run-example">🚀 Run the Example</a>
+
+---
+
+<a id="learning-objective"></a>
+## 🎯 Learning Objective <a href="#top" style="float: right;">🔝</a>
 In this module, you will learn how to go beyond standard time and size triggers. You will master:
 - **TriggeringPolicyBase**: The base class for custom rotation triggers.
-- **Stateful Triggers**: Managing internal counters to decide when to roll.
-- **Custom-Trigger + Standard-Policy**: Combining your custom logic with Logback's built-in file archiving.
+- **Stateful Triggers**: Deciding when to roll based on internal metrics.
+- **Custom-Trigger + Standard-Policy**: Integrating custom logic with built-in archiving.
 
-## 💡 Key Facts
-1.  **Trigger vs Rolling**: A **Triggering Policy** answers the question: "Should we roll now?". A **Rolling Policy** answers the question: "How should we rename the files?".
-2.  **Generic Support**: `TriggeringPolicyBase<E>` allows you to inspect the log event (`E`) to make complex decisions (e.g., rolling when a specific keyword appears).
-3.  **Active File**: Custom triggering policies still interact with the `activeFile` provided by the `RollingFileAppender`.
+---
 
-## 🧪 Implementation Detail
+<a id="key-facts"></a>
+## 💡 Key Facts <a href="#top" style="float: right;">🔝</a>
+1.  **Trigger vs Rolling**: Trigger answers "When?". Rolling answers "How?".
+2.  **Generic Support**: `TriggeringPolicyBase<E>` allows inspecting log events.
+3.  **Active File**: Interacts with the `activeFile` of `RollingFileAppender`.
+
+---
+
+<a id="implementation"></a>
+## 🧪 Implementation Detail <a href="#top" style="float: right;">🔝</a>
 -   **Class**: `CountCustomTriggeringPolicy`
--   **Purpose**: To trigger a rollover every $N$ log messages, regardless of time or file size.
--   **Configuration**: We set `maxCount` to 5.
--   **Archive Strategy**: We use the standard `FixedWindowRollingPolicy` to keep a window of 3 archived files (`custom-rolling.1.log`, etc.).
+-   **Purpose**: Trigger rollover every $N$ log messages.
+-   **Strategy**: Combined with `FixedWindowRollingPolicy`.
 
-## 🚀 Run the Example
+---
+
+<a id="run-example"></a>
+## 🚀 Run the Example <a href="#top" style="float: right;">🔝</a>
 ```bash
 ./gradlew :logback-custom-rolling:run
 ```

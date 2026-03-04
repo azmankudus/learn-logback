@@ -1,28 +1,50 @@
+<a id="top"></a>
+<a href="../README.md" style="float: right;">Direct back to main</a>
+
 # 🛠️ Logback Custom Layout
 
 Learn how to create structured **String Outputs**!
 
-## 🎯 Learning Objective
+---
+
+## 📑 Table of Contents
+- <a href="#learning-objective">🎯 Learning Objective</a>
+- <a href="#key-facts">💡 Key Facts</a>
+- <a href="#implementation">🧪 Implementation Detail</a>
+- <a href="#run-example">🚀 Run the Example</a>
+
+---
+
+<a id="learning-objective"></a>
+## 🎯 Learning Objective <a href="#top" style="float: right;">🔝</a>
 In this module, you will learn how to build a custom layout. You will master:
 - **LayoutBase**: The base class for all Logback layouts.
-- **String Formatting**: Creating custom string representations of log events.
-- **LayoutWrappingEncoder**: How to use a Layout within a modern Encoder system.
+- **String Formatting**: Creating custom string representations.
+- **LayoutWrappingEncoder**: How to use a Layout within an Encoder.
 
-## 💡 Key Facts
-1.  **Layout vs Encoder**: A Layout only converts an event to a **String**. An Encoder converts it to a **byte array**. Layouts are usually wrapped by a `LayoutWrappingEncoder`.
-2.  **Stateless Utility**: Layouts are typically stateless and focused solely on the visual formatting logic.
-3.  **Structured Logs**: Modern logging often requires JSON or CSV formats. While Logback has built-in support for some, creating a custom layout is the best way to handle unique internal log standards.
+---
 
-## 🧪 Implementation Detail
+<a id="key-facts"></a>
+## 💡 Key Facts <a href="#top" style="float: right;">🔝</a>
+1.  **Layout vs Encoder**: Layout converts event to **String**, Encoder to **byte array**.
+2.  **Stateless Utility**: Layouts focus solely on formatting logic.
+3.  **Structured Logs**: Custom layouts are ideal for JSON or CSV formats.
+
+---
+
+<a id="implementation"></a>
+## 🧪 Implementation Detail <a href="#top" style="float: right;">🔝</a>
 -   **Class**: `JsonCustomLayout`
--   **Purpose**: To format every log entry as a single-line JSON object.
--   **Configuration**: The `serviceName` is injected via XML, allowing the same layout class to be used by different services with different identifiers.
+-   **Purpose**: Format log entries as single-line JSON objects.
 -   **Example Output**:
     ```json
-    {"service": "MyAwesomeService", "level": "INFO", "logger": "dev.ayam.Main", "msg": "Main class starting..."}
+    {"service": "MyAwesomeService", "level": "INFO", "msg": "Main starting..."}
     ```
 
-## 🚀 Run the Example
+---
+
+<a id="run-example"></a>
+## 🚀 Run the Example <a href="#top" style="float: right;">🔝</a>
 ```bash
 ./gradlew :logback-custom-layout:run
 ```

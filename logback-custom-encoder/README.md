@@ -1,21 +1,41 @@
+<a id="top"></a>
+<a href="../README.md" style="float: right;">Direct back to main</a>
+
 # 🛠️ Logback Custom Encoder
 
 Discover how to transform logging events into **Byte Streams**!
 
-## 🎯 Learning Objective
+---
+
+## 📑 Table of Contents
+- <a href="#learning-objective">🎯 Learning Objective</a>
+- <a href="#key-facts">💡 Key Facts</a>
+- <a href="#implementation">🧪 Implementation Detail</a>
+- <a href="#run-example">🚀 Run the Example</a>
+
+---
+
+<a id="learning-objective"></a>
+## 🎯 Learning Objective <a href="#top" style="float: right;">🔝</a>
 In this module, you will learn how to build a custom encoder. You will master:
 - **EncoderBase**: The foundation for all Logback encoders.
-- **Byte Array Management**: Working with character sets and byte conversion.
-- **Headers & Footers**: Adding dynamic framing to your log output.
+- **Byte Array Management**: Working with character sets.
+- **Headers & Footers**: Adding framing to your log output.
 
-## 💡 Key Facts
-1.  **Encoders are Powerful**: Unlike Layouts, Encoders can manage the entire lifecycle of the output stream. They are responsible for writing the bytes to the Appender's `OutputStream`.
-2.  **Stateless or Stateful**: Encoders can maintain state between events (e.g., for calculating deltas or aggregating data before flush).
-3.  **Layout Integration**: Most modern encoders (`LayoutWrappingEncoder`) actually wrap a **Layout** to do the string formatting, but you can build one without a layout for maximum performance or binary formats.
+---
 
-## 🧪 Implementation Detail
+<a id="key-facts"></a>
+## 💡 Key Facts <a href="#top" style="float: right;">🔝</a>
+1.  **Byte Streams**: Encoders manage the lifecycle of the output stream.
+2.  **Stateful**: Encoders can maintain state between events for aggregation.
+3.  **Performance**: Custom encoders are great for binary formats.
+
+---
+
+<a id="implementation"></a>
+## 🧪 Implementation Detail <a href="#top" style="float: right;">🔝</a>
 -   **Class**: `UpperCustomEncoder`
--   **Purpose**: To ensure all log messages are converted to shouting **UPPERCASE** and framed with session headers and footers.
+-   **Purpose**: Shout everything in **UPPERCASE** with a session header.
 -   **Example Output**:
     ```text
     --- LOG SESSION START ---
@@ -24,7 +44,10 @@ In this module, you will learn how to build a custom encoder. You will master:
     --- LOG SESSION END ---
     ```
 
-## 🚀 Run the Example
+---
+
+<a id="run-example"></a>
+## 🚀 Run the Example <a href="#top" style="float: right;">🔝</a>
 ```bash
 ./gradlew :logback-custom-encoder:run
 ```

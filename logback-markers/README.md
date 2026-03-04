@@ -1,19 +1,38 @@
+<a id="top"></a>
+<a href="../README.md" style="float: right;">Direct back to main</a>
+
 # 🏷️ Logback Markers
 
 Master **SLF4J Markers** for enhanced log filtering and event tagging!
 
-## 🎯 Learning Objective
-In this module, you'll learn how to use Markers to tag individual log events, allowing for specialized processing and filtering that goes beyond simple log levels or package names. You will master:
+---
+
+## 📑 Table of Contents
+- <a href="#learning-objective">🎯 Learning Objective</a>
+- <a href="#key-facts">💡 Key Facts</a>
+- <a href="#run-example">🚀 Run the Example</a>
+
+---
+
+<a id="learning-objective"></a>
+## 🎯 Learning Objective <a href="#top" style="float: right;">🔝</a>
+In this module, you'll learn how to use Markers for specialized processing. You will master:
 - Creating and using **SLF4J Markers**.
-- The `%marker` conversion word in pattern layouts.
-- **MarkerFilter**: Accepting or denying logs based on specific markers.
+- The `%marker` conversion word.
+- **MarkerFilter**: Specialized log-gatekeeper.
 
-## 💡 Key Facts
-1.  **Event Tagging**: Markers are objects used to "tag" logging requests. They provide a powerful way to categorize logs across different parts of your application.
-2.  **Hierarchical**: Markers can have children, allowing for hierarchical tagging (e.g., `INTERNAL` could be a parent of `DATABASE`).
-3.  **Appender Agnostic**: Like Levels, Markers are part of the logging event and can be used by any appender or filter.
+---
 
-## 🚀 Run the Example
+<a id="key-facts"></a>
+## 💡 Key Facts <a href="#top" style="float: right;">🔝</a>
+1.  **Event Tagging**: Use markers to categorize logs across your application.
+2.  **Hierarchical**: Markers can have children for complex tagging.
+3.  **Appender Agnostic**: Part of the logging event accessible to any component.
+
+---
+
+<a id="run-example"></a>
+## 🚀 Run the Example <a href="#top" style="float: right;">🔝</a>
 ```bash
 ./gradlew :logback-markers:run
 ```

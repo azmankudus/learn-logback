@@ -1,61 +1,39 @@
-# =============================================================================
-# LOGBACK LEARNING REPOSITORY - CLEAN ENVIRONMENT
-# =============================================================================
-# DENY ALL APPROACH: Ignore everything by default
-# =============================================================================
+# 🚫 Deny all files by default
 *
 
-# 🚨 Allow directories (essential to recurse into subdirectories)
+# 🚨 Allow essential directories for recursion
 !**/
 
-# 📄 Root Project Files
+# 📄 Global repository files
 !.gitignore
-!README.md
 !LICENSE
+!README.md
 
-# 📁 logback-basic module
-!logback-basic/src/**
-!logback-basic/gradle/**
+# 🏗️ Logback Basic module - Build environment
 !logback-basic/build.gradle.kts
 !logback-basic/settings.gradle.kts
 !logback-basic/gradle.properties
 !logback-basic/gradlew
 !logback-basic/gradlew.bat
+
+# 📦 Logback Basic module - Dependencies & Source
+!logback-basic/gradle/**
+!logback-basic/src/**
+
+# 📚 Logback Basic module - Documentation
 !logback-basic/README.md
 
 # =============================================================================
-# 🛑 EXCLUSIONS (Items that should NEVER be tracked)
+# 🛑 COMMON EXCLUSIONS (Still explicitly excluded for safety)
 # =============================================================================
-
-# Gradle directories
 .gradle/
 build/
 out/
 bin/
-
-# IDE files
 .vscode/
 .idea/
 *.iml
-.project
-.classpath
-.settings/
-
-# OS/System files
-.DS_Store
-Thumbs.db
-
-# Logs & Binaries
 logs/
 *.log
 *.class
 *.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# VM crash logs
-hs_err_pid*
-replay_pid*

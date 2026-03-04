@@ -20,6 +20,8 @@
 # 📦 Projects
 !logback-basic/gradle/**
 !logback-basic/src/**
+!logback-logger/gradle/**
+!logback-logger/src/**
 !logback-appender/gradle/**
 !logback-appender/src/**
 !logback-rolling/gradle/**

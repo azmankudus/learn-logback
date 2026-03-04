@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 1. Define a property: Acts just like a variable in code -->
+    <!-- This allows you to centralize configurations like patterns or file paths -->
+    <property name="MY_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n" />
+
+    <!-- 2. Console Appender: Using the defined property via ${PROPERTY_NAME} syntax -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${MY_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="dev.ayam.learn.logback.hr" level="INFO" />
+    <logger name="dev.ayam.learn.logback.it" level="DEBUG" />
+    <logger name="dev.ayam.learn.logback.sales" level="TRACE" />
+
+    <!-- Root Logger -->
+    <root level="ERROR">
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+</configuration>

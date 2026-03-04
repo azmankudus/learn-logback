@@ -66,6 +66,7 @@ Explore specific modules to learn different Logback features step-by-step:
 
 *   **[Logback Basic](logback-basic/)**: The perfect starting point for beginners. Master the `<root>` element, basic console appenders, and logging hierarchies.
 *   **[Logback Appender](logback-appender/)**: Learn how to send logs to multiple destinations. Master `ConsoleAppender`, `FileAppender`, and the basics of multi-destination logging.
+*   **[Logback Logger](logback-logger/)**: Master package-specific logging levels. Learn how to configure different logging strictness for different parts of your application (HR, IT, Sales).
 *   **[Logback Rolling](logback-rolling/)**: Advanced history management. Learn about `RollingFileAppender`, `SizeAndTimeBasedRollingPolicy`, and how to prevent log files from taking over your disk.
 
 ---
@@ -78,14 +79,14 @@ Explore specific modules to learn different Logback features step-by-step:
 
 ### Commands
 
-**Run the app:**
+**Run a specific module (e.g., Logback Logger):**
 ```bash
-./gradlew run
+./gradlew :logback-logger:run
 ```
 
-**Check the persistent logs:**
+**Check the persistent logs (if applicable):**
 ```bash
-cat logs/app.log
+cat logback-appender/logs/simple-app.log
 ```
 
 ---
@@ -94,14 +95,13 @@ cat logs/app.log
 
 ```text
 .
-├── build.gradle.kts       # Project build config
-├── gradle/
-│   └── libs.versions.toml # Dependency management
-└── src/
-    └── main/
-        ├── java/          # Source code
-        └── resources/
-            └── logback.xml # THE brain of Logback
+├── logback-basic/     # 🍼 Beginner basics
+├── logback-appender/  # 📁 File & console destinations
+├── logback-logger/    # 📦 Package-specific levels
+├── logback-rolling/   # 🌀 Advanced log rotation
+├── build.gradle.kts   # Project build config
+└── gradle/
+    └── libs.versions.toml # Dependency management
 ```
 
 ---

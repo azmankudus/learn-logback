@@ -49,6 +49,8 @@
 !/logback-markers/**
 !/logback-condition/
 !/logback-condition/**
+!/logback-fluent/
+!/logback-fluent/**
 
 # Build artifacts and caches within modules
 **/.gradle/

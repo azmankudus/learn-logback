@@ -17,7 +17,10 @@ Understanding the lifecycle of a log event is key to mastering Logback.
 7.  **🏁 Destination**: The final target output (Console, File, or Remote server).
 
 > [!TIP]
-> **Performance Tip**: Always use the **SLF4J parameterized logging** (`logger.info("User {} logged in", user);`) instead of string concatenation to avoid unnecessary string creations when the log level is disabled.
+> **Performance Tip**: Avoid unnecessary overhead!
+> 1. Use **parameterized logging**: `logger.info("User {} logged in", user);` instead of string concatenation.
+> 2. Use **explicit level checks**: `if (logger.isDebugEnabled()) { ... }` for expensive logging logic.
+> 3. Use the **Fluent API** (SLF4J 2.0+): `logger.atInfo().addArgument(user).log("User {} logged in");` for a cleaner, safer syntax.
 
 ---
 
@@ -48,6 +51,7 @@ Explore the core batteries-included features of Logback:
 *   **[Context](logback-context/)**: MDC (Mapped Diagnostic Context) for thread-safe session tracking.
 *   **[Markers](logback-markers/)**: Tagging log events for specialized filtering and processing.
 *   **[Condition](logback-condition/)**: Using conditional logic for environment-specific configuration.
+*   **[Fluent API](logback-fluent/)**: Modern and type-safe logging using the SLF4J 2.0+ Fluent Interface.
 
 ### 🛠️ 3. Custom Extensions
 Learn how to extend Logback for specific business needs:

@@ -21,12 +21,22 @@ Understanding the lifecycle of a log event is key to mastering Logback.
 
 ---
 
+## 🤔 Why Logback?
+Logback is the successor to the popular log4j project, picking up where log4j 1.x left off.
+- **Native SLF4J Support**: Logback implements the SLF4J API natively, which means ZERO overhead when calling the logger.
+- **Performance**: It's significantly faster and has a smaller memory footprint than its predecessors.
+- **Automatic Reloading**: Changes to `logback.xml` can be detected and applied without restarting the application (`scan="true"`).
+- **Extensive Documentation**: One of the best-documented logging frameworks in the Java ecosystem.
+
+---
+
 ## 📚 Learning Path
 
 Explore the projects in this sequence to build your knowledge from the ground up:
 
 ### 🍼 1. Basic
 *   **[Logback Basic](logback-basic/)**: The absolute entry point. SLF4J setup, XML structure, and **Dynamic Reloading**.
+    > _Start here to understand how Logback finds its configuration._
 
 ### ⚓ 2. Built-in Features
 Explore the core batteries-included features of Logback:
@@ -47,6 +57,18 @@ Learn how to extend Logback for specific business needs:
 *   **[Custom Layout](logback-custom-layout/)**: Implementing `LayoutBase`.
 *   **[Custom Rolling](logback-custom-rolling/)**: Implementing custom triggering and rolling policies.
 *   **[Custom Filter](logback-custom-filter/)**: Implementing custom `Filter` logic.
+
+---
+
+## 🏛️ Best Practices: Logging Levels in Production
+- **`ERROR`**: Failures that require immediate attention (e.g., database down).
+- **`WARN`**: Minor issues that might need investigation (e.g., slow performance).
+- **`INFO`**: Key business events. This is your default for production.
+- **`DEBUG`**: Detailed info for troubleshooting. **Avoid in production.**
+- **`TRACE`**: Granular method-level detail. **NEVER use in production.**
+
+> [!TIP]
+> Use **MDC** to tag all logs in a single transaction with a `traceId`. It's a lifesaver in high-volume systems!
 
 ---
 

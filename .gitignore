@@ -16,6 +16,7 @@
 !/CONTRIBUTORS.md
 !/CODE_OF_CONDUCT.md
 !/SECURITY.md
+!/CHEATSHEET.md
 
 # Project folders
 !/logback-basic/
@@ -44,6 +45,10 @@
 !/logback-custom-rolling/**
 !/logback-custom-filter/
 !/logback-custom-filter/**
+!/logback-markers/
+!/logback-markers/**
+!/logback-condition/
+!/logback-condition/**
 
 # Build artifacts and caches within modules
 **/.gradle/

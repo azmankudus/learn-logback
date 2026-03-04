@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <!-- 1. Console Appender: Instant feedback in terminal -->
+    <!-- 1. Define a Property for the Log Directory -->
+    <property name="LOG_DIR" value="logs" />
+
+    <!-- 2. Console Appender: Instant feedback in terminal -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- 2. Simple File Appender: Just write everything to a single file -->
+    <!-- 3. Simple File Appender -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/simple-app.log</file>
+        <file>${LOG_DIR}/simple-app.log</file>
         <append>true</append>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- 3. Rolling File Appender: Manage log size and history -->
+    <!-- 4. Rolling File Appender -->
     <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/rolling-app.log</file>
+        <file>${LOG_DIR}/rolling-app.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/archived/rolling-app.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${LOG_DIR}/archived/rolling-app.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>

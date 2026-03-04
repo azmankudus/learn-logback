@@ -33,6 +33,27 @@ The "intelligent" file appender that can split, rotate, and archive logs.
 
 ---
 
+## ⚙️ Using Properties for Paths
+
+Logback allows you to define variables using the `<property>` tag. This is extremely useful for centralizing file paths so you don't have to repeat strings like `logs/` everywhere.
+
+### Defining a Path Property:
+```xml
+<property name="LOG_DIR" value="logs" />
+```
+
+### Using the Property:
+You can reference the property anywhere using the `${PROPERTY_NAME}` syntax:
+```xml
+<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>${LOG_DIR}/simple-app.log</file>
+    ...
+</appender>
+```
+This ensures that if you ever need to change your log directory to `/var/log/my-app/`, you only need to update it in one place!
+
+---
+
 ## 🧩 Combining Appenders
 
 You don't have to choose just one! You can attach all of them to your root logger:
